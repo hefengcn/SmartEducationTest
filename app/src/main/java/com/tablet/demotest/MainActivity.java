@@ -3,6 +3,7 @@ package com.tablet.demotest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init101CourseWebView();
+        initOralTrainingWebView();
+    }
+
+    private void init101CourseWebView() {
+        WebView webView = (WebView) findViewById(R.id.video_course_webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.loadUrl("https://static.chinaedu.com/commonplayer/play.html?uid=c6dc74d05b69495c8922d4bf1c83016c&c=1");
+    }
+
+    private void initOralTrainingWebView() {
+        WebView webView = (WebView) findViewById(R.id.oral_training_webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.loadUrl("https://kouxunspeak.lenovoresearch2019.cn/mhome/");
     }
 
     public void onButtonClick(View view) {
@@ -24,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button_edu_course:
                 Intent intent = new Intent(ACTION_CONTENT_PUSH);
+                intent.setPackage("com.tablet.smartedu");
                 String content = getLessonContent();
                 intent.putExtra("type", EDU_COURSE);
                 intent.putExtra("content", content);
@@ -32,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button_oral_training:
                 intent = new Intent(ACTION_CONTENT_PUSH);
+                intent.setPackage("com.tablet.smartedu");
                 intent.putExtra("type", ORAL_TRAINING);
+                intent.putExtra("content", "oral training");
                 sendBroadcast(intent);
                 break;
         }
@@ -42,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Lesson lesson = new Lesson();
         lesson.setGrade("初一");
-        lesson.setCode("c1lsp05");
-        lesson.setSubject("历史");
-        lesson.setName("千古一帝秦始皇");
-        lesson.setTeacher("王宗琦");
-        lesson.setUrl("https://static.chinaedu.com/commonplayer/play.html?uid=a03d10f4-b4ac-4d0b-8fde-10e4b6716a36&c=1");
+        lesson.setCode("c1ywf149");
+        lesson.setSubject("数学");
+        lesson.setName("暑假专题——归纳与猜想");
+        lesson.setTeacher("101老师");
+        lesson.setUrl("https://static.chinaedu.com/commonplayer/play.html?uid=c6dc74d05b69495c8922d4bf1c83016c&c=1");
         return gson.toJson(lesson);
     }
 }
